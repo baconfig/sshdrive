@@ -1,1 +1,2 @@
-selamat malam kawan
+echo -e "${BICyan} ⇲  ${BICyan}Status Hari Ini :  ${BIYellow}$(cat /root/status)${NC}"
+rm -f /root/status
