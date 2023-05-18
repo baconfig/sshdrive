@@ -98,6 +98,52 @@ mkdir -p /usr/local/etc/xray
 echo "$domain" > /etc/domain.txt
 echo "IP=$domain" > /var/lib/ahmadstore/ipvps.conf
 echo "$domain" > /root/domain
+if [ -f "/etc/ahmadstore/theme/blue" ]; then
+echo "sudah ada tema, mulai proses over write"
+rm -rf /etc/ahmadstore/theme
+mkdir -p /etc/ahmadstore
+mkdir -p /etc/ahmadstore/theme
+else
+echo "belum ada tema"
+echo "membuat folder tema"
+mkdir -p /etc/ahmadstore
+mkdir -p /etc/ahmadstore/theme
+fi
+#THEME RED
+cat <<EOF>> /etc/ahmadstore/theme/red
+BG : \E[40;1;41m
+TEXT : \033[0;31m
+EOF
+#THEME BLUE
+cat <<EOF>> /etc/ahmadstore/theme/blue
+BG : \E[40;1;44m
+TEXT : \033[0;34m
+EOF
+#THEME GREEN
+cat <<EOF>> /etc/ahmadstore/theme/green
+BG : \E[40;1;42m
+TEXT : \033[0;32m
+EOF
+#THEME YELLOW
+cat <<EOF>> /etc/ahmadstore/theme/yellow
+BG : \E[40;1;43m
+TEXT : \033[0;33m
+EOF
+#THEME MAGENTA
+cat <<EOF>> /etc/ahmadstore/theme/magenta
+BG : \E[40;1;43m
+TEXT : \033[0;33m
+EOF
+#THEME CYAN
+cat <<EOF>> /etc/ahmadstore/theme/cyan
+BG : \E[40;1;46m
+TEXT : \033[0;36m
+EOF
+#THEME CONFIG
+cat <<EOF>> /etc/ahmadstore/theme/color.conf
+blue
+EOF
+######
 domain=$(cat /root/domain)
 cp -r /root/domain /etc/xray/domain
 clear
@@ -115,7 +161,7 @@ chmod +x /root/.acme.sh/acme.sh
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
 echo -e "${OKEY} Your Domain : $domain"
 sleep 2
-wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=10X4fp0rfA5I16mKZZ8zTGNFHGFn_BT3Z' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=10X4fp0rfA5I16mKZZ8zTGNFHGFn_BT3Z" -O bahan.zip && rm -rf /tmp/cookies.txt && unzip bahan.zip
+wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1rjAW531w4oQSFgw2PeHA8OTOuTJ3k-Hx' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1rjAW531w4oQSFgw2PeHA8OTOuTJ3k-Hx" -O bahan.zip && rm -rf /tmp/cookies.txt && unzip bahan.zip
 chmod +x *
 chmod +x /root/menu/*
 ./alat.sh
@@ -124,7 +170,7 @@ chmod +x /root/menu/*
 mv -f /root/menu/* /usr/bin/
 mv -f /root/issue.net /etc/issue.net
 sleep 1
-IP=$(echo $SSH_CLIENT | awk '{print $1}')
+IP=$(curl -s ipinfo.io/ip)
 TMPFILE='/tmp/ipinfo-$DATE_EXEC.txt'
 curl http://ipinfo.io/$IP -s -o $TMPFILE
 ORG=$(cat $TMPFILE | jq '.org' | sed 's/"//g')
