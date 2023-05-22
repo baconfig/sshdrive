@@ -242,6 +242,10 @@ curl -sS ifconfig.me > /etc/myipvps
 clear
 echo "checking update..."
 sleep 1
+rm /usr/bin/updatsc
+cd
+wget -O /usr/bin/updatsc https://raw.githubusercontent.com/YaddyKakkoii/fixsc/main/updatesc.sh
+chmod +x /usr/bin/updatsc
 updatsc
 cd
 echo " "
